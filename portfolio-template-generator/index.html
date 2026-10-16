@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Create, save, and preview a personal portfolio with three distinctive editorial portfolio templates.">
+  <title>Portfolia — Editorial Portfolio Studio</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#" data-page="home"><span class="brand-mark">P</span> Portfolia</a>
+    <nav>
+      <button class="nav-link active" data-page="home">Home</button>
+      <button class="nav-link" data-page="editor">Create Portfolio</button>
+      <button class="nav-link" data-page="manage">My Portfolios</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home-page" class="page active">
+      <div class="hero">
+        <div class="hero-copy">
+          <span class="eyebrow">A PERSONAL INDEX / 2026</span>
+          <h1>Make your work <span>impossible to ignore.</span></h1>
+          <p>Bring your education, skills, projects, and experience together in one professional portfolio. Choose a style, preview it, and save it online.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" data-page="editor">Create my portfolio <span aria-hidden="true">→</span></button>
+            <button class="btn btn-secondary" data-page="templates">Explore templates</button>
+          </div>
+          <div class="hero-note"><span class="status-dot"></span> Three templates · Online saving · Edit anytime</div>
+        </div>
+        <div class="hero-art" aria-label="Portfolio preview illustration">
+          <div class="floating-card card-back"><div class="fake-line w60"></div><div class="fake-line w85"></div><div class="fake-line w45"></div><div class="fake-block"></div></div>
+          <div class="floating-card card-front"><div class="mini-top"><span class="mini-avatar">P</span><span class="mini-pill">PORTFOLIO</span></div><div class="fake-line w45 dark"></div><div class="fake-line w85"></div><div class="fake-line w60"></div><div class="mini-grid"><div></div><div></div><div></div></div></div>
+          <div class="hero-orb orb-one"></div><div class="hero-orb orb-two"></div>
+        </div>
+      </div>
+      <section class="section-block">
+        <div class="section-heading"><span class="eyebrow">HOW IT WORKS</span><h2>From blank page to portfolio.</h2><p>Everything you need to present your work clearly.</p></div>
+        <div class="feature-grid">
+          <article class="feature-card"><span class="feature-number">01</span><h3>Add your details</h3><p>Enter your profile, education, skills, projects, and experience.</p></article>
+          <article class="feature-card"><span class="feature-number">02</span><h3>Pick a design</h3><p>Choose Simple, Modern, or Creative. Each template has its own layout.</p></article>
+          <article class="feature-card"><span class="feature-number">03</span><h3>Preview and manage</h3><p>Save online, preview your portfolio, and update it whenever you need.</p></article>
+        </div>
+      </section>
+      <section id="template-showcase" class="section-block templates-section">
+        <div class="section-heading"><span class="eyebrow">THREE DISTINCT STYLES</span><h2>Find your portfolio look.</h2></div>
+        <div class="template-cards">
+          <article class="template-choice simple-sample"><div class="sample-top"><span class="sample-avatar">A</span><span class="sample-label">SIMPLE</span></div><h3>Alex Morgan</h3><p>Developer & problem solver</p><div class="sample-rule"></div><div class="sample-rule short"></div><div class="sample-mini-grid"><span></span><span></span></div><h4>Simple</h4><p>Clean, focused, and professional.</p></article>
+          <article class="template-choice modern-sample"><div class="sample-label">MODERN / 02</div><div class="sample-modern-head"><span class="sample-avatar">A</span><div><h3>Alex Morgan</h3><p>Digital creator</p></div></div><div class="sample-modern-grid"><span></span><span></span><span></span></div><h4>Modern</h4><p>Cards, contrast, and clear sections.</p></article>
+          <article class="template-choice creative-sample"><div class="sample-label">CREATIVE — 03</div><h3>HELLO,<br>WORLD.</h3><div class="creative-scribble">✳</div><p>Alex Morgan / Portfolio</p><div class="sample-rule"></div><h4>Creative</h4><p>Bold typography and an expressive layout.</p></article>
+        </div>
+      </section>
+    </section>
+
+    <section id="editor-page" class="page">
+      <div class="page-intro"><span class="eyebrow">PORTFOLIO BUILDER</span><h1 id="editor-title">Create your portfolio</h1><p>Fill in what you have. Optional fields can be left blank.</p></div>
+      <form id="portfolio-form" class="editor-layout">
+        <div class="form-column">
+          <section class="form-card">
+            <div class="form-section-title"><span class="section-icon">01</span><div><h2>Personal information</h2><p>Tell visitors who you are.</p></div></div>
+            <div class="form-grid">
+              <label class="field full">Full name *<input id="full_name" name="full_name" required maxlength="100" placeholder="e.g. Alex Morgan"></label>
+              <label class="field">Email<input id="email" name="email" type="email" maxlength="254" placeholder="alex@example.com"></label>
+              <label class="field">Contact number<input id="contact_number" name="contact_number" maxlength="40" placeholder="+63 900 000 0000"></label>
+              <label class="field full">Address<input id="address" name="address" maxlength="200" placeholder="City, Country"></label>
+              <label class="field full">About me<textarea id="about_me" name="about_me" rows="4" maxlength="3000" placeholder="Write a short introduction..."></textarea></label>
+              <label class="field full">Profile picture<input id="profile_file" type="file" accept="image/png,image/jpeg,image/webp"><small>Optional. JPG, PNG, or WebP, up to 2 MB.</small></label>
+              <label class="field full">Or use a profile picture URL<input id="profile_picture" name="profile_picture" type="url" maxlength="1000" placeholder="https://example.com/photo.jpg"></label>
+            </div>
+          </section>
+          <section class="form-card">
+            <div class="form-section-title"><span class="section-icon">02</span><div><h2>Education</h2><p>One entry per line: qualification | school | year.</p></div></div>
+            <label class="field">Educational background<textarea id="education" rows="4" placeholder="BS Information Technology | Example University | 2026"></textarea></label>
+          </section>
+          <section class="form-card">
+            <div class="form-section-title"><span class="section-icon">03</span><div><h2>Skills</h2><p>Separate skills with commas or put each on a new line.</p></div></div>
+            <label class="field">Your skills<textarea id="skills" rows="3" placeholder="HTML, CSS, JavaScript, teamwork"></textarea></label>
+          </section>
+          <section class="form-card">
+            <div class="form-section-title"><span class="section-icon">04</span><div><h2>Projects</h2><p>One entry per line: project name | description | link.</p></div></div>
+            <label class="field">Projects<textarea id="projects" rows="5" placeholder="Student Task Manager | A simple task tracking app | https://example.com"></textarea></label>
+          </section>
+          <section class="form-card">
+            <div class="form-section-title"><span class="section-icon">05</span><div><h2>Work experience</h2><p>One entry per line: role | organization | dates | description.</p></div></div>
+            <label class="field">Experience<textarea id="experience" rows="4" placeholder="IT Support Intern | Example Company | 2025 | Helped maintain computers"></textarea></label>
+          </section>
+          <section class="form-card">
+            <div class="form-section-title"><span class="section-icon">06</span><div><h2>Links</h2><p>One link per line: label | URL.</p></div></div>
+            <label class="field">Social media / website links<textarea id="social_links" rows="4" placeholder="GitHub | https://github.com/yourname&#10;LinkedIn | https://linkedin.com/in/yourname"></textarea></label>
+          </section>
+        </div>
+        <aside class="editor-sidebar">
+          <div class="form-card sticky-card">
+            <h2>Save your portfolio</h2>
+            <p class="muted">Your portfolio is saved to the online database and linked to this browser session.</p>
+            <label class="field">Portfolio title<input id="portfolio_title" maxlength="120" placeholder="My professional portfolio"></label>
+            <label class="field">Choose a template
+              <select id="template" name="template">
+                <option value="simple">Simple — Clean & professional</option>
+                <option value="modern">Modern — Cards & contrast</option>
+                <option value="creative">Creative — Bold & expressive</option>
+              </select>
+            </label>
+            <div class="sidebar-actions"><button class="btn btn-primary full-btn" type="submit" id="save-button">Save portfolio</button><button class="btn btn-secondary full-btn" type="button" id="preview-button">Preview</button><button class="btn btn-quiet full-btn hidden" type="button" id="cancel-edit-button">Cancel editing</button></div>
+            <p id="form-status" class="status-message" role="status"></p>
+          </div>
+        </aside>
+      </form>
+    </section>
+
+    <section id="templates-page" class="page">
+      <div class="page-intro"><span class="eyebrow">TEMPLATE GALLERY</span><h1>Three styles. One story.</h1><p>Choose a template in the builder. You can change it later.</p></div>
+      <div class="template-cards gallery-cards">
+        <article class="template-choice simple-sample"><div class="sample-top"><span class="sample-avatar">A</span><span class="sample-label">SIMPLE</span></div><h3>Alex Morgan</h3><p>Developer & problem solver</p><div class="sample-rule"></div><div class="sample-rule short"></div><div class="sample-mini-grid"><span></span><span></span></div><h4>Simple</h4><p>Minimal styling and easy-to-read sections.</p><button class="btn btn-primary choose-template" data-template="simple">Use Simple</button></article>
+        <article class="template-choice modern-sample"><div class="sample-label">MODERN / 02</div><div class="sample-modern-head"><span class="sample-avatar">A</span><div><h3>Alex Morgan</h3><p>Digital creator</p></div></div><div class="sample-modern-grid"><span></span><span></span><span></span></div><h4>Modern</h4><p>Structured cards and a contemporary layout.</p><button class="btn btn-primary choose-template" data-template="modern">Use Modern</button></article>
+        <article class="template-choice creative-sample"><div class="sample-label">CREATIVE — 03</div><h3>HELLO,<br>WORLD.</h3><div class="creative-scribble">✳</div><p>Alex Morgan / Portfolio</p><div class="sample-rule"></div><h4>Creative</h4><p>Editorial typography and a playful arrangement.</p><button class="btn btn-primary choose-template" data-template="creative">Use Creative</button></article>
+      </div>
+    </section>
+
+    <section id="preview-page" class="page">
+      <div class="preview-toolbar"><div><span class="eyebrow">PORTFOLIO PREVIEW</span><h1 id="preview-heading">Your portfolio</h1></div><div class="toolbar-actions"><button id="edit-current-button" class="btn btn-secondary">Edit details</button><button id="print-button" class="btn btn-primary">Print / Save PDF</button></div></div>
+      <div id="portfolio-render" class="portfolio-render"></div>
+    </section>
+
+    <section id="manage-page" class="page">
+      <div class="page-intro page-intro-row"><div><span class="eyebrow">YOUR WORKSPACE</span><h1>My portfolios</h1><p>Open, edit, preview, or delete your saved portfolios.</p></div><button class="btn btn-primary" data-page="editor">+ New portfolio</button></div>
+      <div id="manage-status" class="status-message" role="status"></div>
+      <div id="portfolio-list" class="portfolio-list"></div>
+    </section>
+  </main>
+  <footer class="site-footer"><a class="brand" href="#" data-page="home"><span class="brand-mark">P</span> Portfolia</a><span>Good work deserves a bold frame.</span><span>Portfolio Template Generator</span></footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <dialog id="delete-dialog" class="confirm-dialog"><form method="dialog"><h2>Delete this portfolio?</h2><p>This removes the saved portfolio from your online database. This action cannot be undone.</p><div class="dialog-actions"><button class="btn btn-secondary" value="cancel">Cancel</button><button id="confirm-delete" class="btn btn-danger" value="confirm">Delete portfolio</button></div></form></dialog>
+</body>
+</html>
